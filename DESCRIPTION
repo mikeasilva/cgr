@@ -1,0 +1,24 @@
+Package: cgr
+Type: Package
+Title: Utilities CGR Staff Commonly Use
+Version: 0.0.1
+Authors@R: c(
+    person("CGR Data Science Team", "", , "datascience@cgr.org", role = c("aut", "cre"))
+    )
+Encoding: UTF-8
+Description: A R Package with Utilities for Common CGR Tasks.
+URL: https://github.com/cgr-promising-solutions/cgr
+BugReports: https://github.com/cgr-promising-solutions/cgr/issues/new
+Depends:
+    R (>= 3.0.2)
+Imports:
+    testthat,
+    ggmap,
+    rjson
+Suggests:
+    curl (>= 0.9)
+Remotes:
+  rstudio/rstudioapi
+License: GPL (>= 2)
+RoxygenNote: 6.0.1
+LazyData: true
