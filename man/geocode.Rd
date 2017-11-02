@@ -4,16 +4,24 @@
 \alias{geocode}
 \title{Geocode Wrapper}
 \usage{
-geocode(addresses_to_geocode, google_api_key = NA)
+geocode(addresses_to_geocode, google_api_key = NA, clean = TRUE)
 }
 \arguments{
 \item{addresses_to_geocode}{A vector of addresses}
 
 \item{google_api_key}{OPTIONAL API Key}
-}
-\value{
-dataframe
+
+\item{clean}{TRUE if you want to delete the temp file, FALSE if you want it
+to stay}
 }
 \description{
 This provides a wrapper for Google's geocoding service
+}
+\examples{
+library(cgr)
+\dontrun{
+library(cgr)
+address <- c("1600 Pennsylvania Ave NW, Washington, DC 20500")
+geocode(address)
+}
 }

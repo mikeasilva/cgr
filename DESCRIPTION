@@ -3,7 +3,8 @@ Type: Package
 Title: Utilities CGR Staff Commonly Use
 Version: 0.0.1
 Authors@R: c(
-    person("CGR Data Science Team", "", , "datascience@cgr.org", role = c("aut", "cre"))
+    person("CGR Data Science Team", "", , "datascience@cgr.org", role = c("aut", "cre")),
+    person("Silva", "Mike", email = "msilva@cgr.org", role = "ctb")
     )
 Encoding: UTF-8
 Description: A R Package with Utilities for Common CGR Tasks.
@@ -14,7 +15,8 @@ Depends:
 Imports:
     testthat,
     ggmap,
-    rjson
+    rjson,
+    utils
 Suggests:
     curl (>= 0.9)
 Remotes:
