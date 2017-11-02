@@ -1,13 +1,10 @@
-# Geocoder Wrapper
-#
-# This provides a wrapper for Google's geocoding service
+# Spatial Tools
 #
 
 #' Geocode Wrapper
 #'
 #' This provides a wrapper for Google's geocoding service
 #'
-#' @return dataframe
 #' @param addresses_to_geocode A vector of addresses
 #' @param google_api_key OPTIONAL API Key
 #' @param clean TRUE if you want to delete the temp file, FALSE if you want it
@@ -15,6 +12,13 @@
 #' @import rjson
 #' @import ggmap
 #' @export
+#' @examples
+#' library(cgr)
+#' \dontrun{
+#' library(cgr)
+#' address <- c("1600 Pennsylvania Ave NW, Washington, DC 20500")
+#' geocode(address)
+#'}
 geocode <- function(addresses_to_geocode, google_api_key = NA, clean = TRUE) {
   # Check to see if we are going to use the API key or not
   use_api_key <- ifelse(is.na(google_api_key), FALSE, TRUE)
@@ -61,12 +65,12 @@ geocode <- function(addresses_to_geocode, google_api_key = NA, clean = TRUE) {
     if (use_api_key){
       url <- paste0(
         "https://maps.googleapis.com/maps/api/geocode/json?address=",
-        address, "&sensor=false&key=", api_key)
+        address, "&sensor=false&key=", google_api_key)
       response <- rjson::fromJSON(file = url, method = "C")
     } else {
-      response <- ggmap::geocode(address, output = "all",
-                                 override_limit = TRUE,
-                                 messaging = FALSE)
+      response <- suppressMessages(ggmap::geocode(address, output = "all",
+                                                  override_limit = TRUE,
+                                                  messaging = FALSE))
     }
 
     # Initialize return varriables with NA's incase we don't have any results
@@ -127,7 +131,7 @@ geocode <- function(addresses_to_geocode, google_api_key = NA, clean = TRUE) {
   total <- length(addresses_to_geocode)
 
   # Loop through the addresses
-  for (i in seq(start_index, total)){
+  for (i in seq(current_row, total)){
     # Get the gecoded info
     row <- geocode_me(addresses_to_geocode[i])
     # Append it to the data frame
@@ -137,7 +141,7 @@ geocode <- function(addresses_to_geocode, google_api_key = NA, clean = TRUE) {
   }
 
   # Write the output
-  write.table(geocoded,
+  utils::write.table(geocoded,
               file = "geocoded.csv",
               sep = ",",
               row.names = FALSE)
@@ -147,5 +151,5 @@ geocode <- function(addresses_to_geocode, google_api_key = NA, clean = TRUE) {
     unlink(temp_filename)
   }
 
-  print("Results are save to geocoded.csv")
+  message("Results are save to geocoded.csv")
 }
